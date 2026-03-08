@@ -10,60 +10,89 @@
     box-sizing: border-box;
 }
 
-.post-card a, .profile-container a {
-    text-decoration: none;
-    color: white;
-}
-
 body {
-    background-color: var(--bg-color);
+    background: var(--bg-color);
     color: var(--text-main);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     margin: 0;
     display: flex;
     justify-content: center;
-    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .main-container {
     width: 100%;
-    max-width: 600px;
+    max-width: 620px;
     border-left: 1px solid var(--border-color);
     border-right: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
 }
 
-header h1 {
-    text-align: center;
-    font-size: 32px;
-    margin: 30px 0;
+
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 16px;
+    border-bottom: 1px solid var(--border-color);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    backdrop-filter: blur(12px);
+    background: rgba(16,16,16,0.75);
+}
+
+.logo a {
+    color: white;
+    font-size: 24px;
     font-weight: 800;
 }
 
-.create-post-area {
-    padding: 16px;
-    border-bottom: 1px solid var(--border-color);
+.user-controls {
+    display: flex;
+    align-items: center;
+    gap: 14px;
 }
 
+.username {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+.create-post-area {
+    padding: 16px;
+    margin: 12px;
+
+    border-radius: 16px;
+
+    border: 1px solid rgba(255,255,255,0.12);
+
+    background: rgba(255,255,255,0.03);
+
+    backdrop-filter: blur(6px);
+
+    transition: border 0.2s ease, background 0.2s ease;
+}
+
+.create-post-area:hover {
+    border: 1px solid rgba(255,255,255,0.20);
+}
 .form-header {
     display: flex;
     gap: 12px;
-}
-
-.avatar-placeholder {
-    width: 40px;
-    height: 40px;
-    background-color: #222;
-    border-radius: 50%;
-    overflow: hidden;
-    flex-shrink: 0;
-}
-
-.avatar-placeholder img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 textarea {
@@ -74,8 +103,7 @@ textarea {
     font-size: 16px;
     resize: none;
     outline: none;
-    padding-top: 8px;
-    min-height: 50px;
+    min-height: 60px;
 }
 
 .form-footer {
@@ -89,27 +117,67 @@ textarea {
 .file-label {
     cursor: pointer;
     font-size: 20px;
-    transition: opacity 0.2s;
 }
 
-.file-label:hover { opacity: 0.7; }
+#file-input {
+    display: none;
+}
 
 .post-btn {
-    background-color: var(--accent-white);
-    color: #000;
-    border: none;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: white;
     padding: 8px 18px;
     border-radius: 20px;
-    font-weight: 700;
+    font-weight: 600;
     cursor: pointer;
-    font-size: 14px;
+    backdrop-filter: blur(6px);
+    transition: 0.2s;
+}
+
+.post-btn:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+
+.avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    background: #222;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.avatar-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.feed {
+    padding: 12px;
 }
 
 .post-card {
     padding: 16px;
-    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 14px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(6px);
+
+    transition:
+        transform 0.15s ease,
+        background 0.2s ease,
+        border 0.2s ease;
 }
 
+.post-card:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.15);
+}
 .post-header {
     display: flex;
     justify-content: space-between;
@@ -127,10 +195,15 @@ textarea {
     font-size: 15px;
 }
 
+.author-name:hover {
+    text-decoration: underline;
+}
+
 .post-date {
     color: var(--text-muted);
-    font-size: 14px;
+    font-size: 13px;
 }
+
 
 .post-content {
     padding-left: 52px;
@@ -139,36 +212,109 @@ textarea {
     margin-bottom: 10px;
 }
 
+
 .post-image-container {
     margin: 10px 0 10px 52px;
     border-radius: 12px;
-    border: 1px solid var(--border-color);
     overflow: hidden;
+    border: 1px solid var(--border-color);
 }
 
 .post-image {
     width: 100%;
-    display: block;
 }
 
 .post-footer {
     padding-left: 52px;
     display: flex;
     gap: 20px;
-    color: var(--text-main);
+    align-items: center;
 }
 
-.action-item {
-    font-size: 14px;
+.like-btn {
+    background: none;
+    border: none;
     cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: white;
 }
+
+.like-btn:hover {
+    opacity: 0.8;
+}
+
+.like-btn span {
+    transition: transform 0.15s ease;
+}
+
+.like-btn:active span {
+    transform: scale(1.35);
+}
+
+.like-count {
+    color: white;
+}
+
 
 .empty-state {
-    padding: 60px 20px;
+    text-align: center;
+    color: var(--text-muted);
+    padding: 40px 0;
+}
+
+
+.site-footer {
+    margin-top: 40px;
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
     text-align: center;
     color: var(--text-muted);
 }
 
-.empty-state p {
+.threads-icon{
+    font-size: 32px;
+    margin-right: 8px;
+    color: white;
+    transition: transform 0.2s ease;
+}
+
+.logo:hover .threads-icon{
+    transform: rotate(-8deg) scale(1.1);
+}
+
+
+.upload-btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 6px 12px;
+
+    font-size: 14px;
+
+    border-radius: 20px;
+
+    border: 1px solid rgba(255,255,255,0.12);
+
+    background: rgba(255,255,255,0.05);
+
+    cursor: pointer;
+
+    transition: background 0.2s ease, border 0.2s ease;
+}
+
+.upload-btn:hover{
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.25);
+}
+
+.upload-btn i{
     font-size: 16px;
+}
+
+#file-input{
+    display:none;
 }
