@@ -1,12 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
-from .forms import MyUserCreationForm, ProfileEditForm
+from .forms import MyUserCreationForm, EditProfileForm
 from .models import Post, Comment
 from django.contrib.auth import get_user_model
-
-from django.shortcuts import render, get_object_or_404
-from .models import Post
 
 User = get_user_model()
 
@@ -35,13 +32,14 @@ def register(request):
 
     return render(request, 'register.html', {'form': form})
 
+
 @login_required
 def profile(request):
     user = request.user
-
     posts = user.posts.all().order_by('-created_at')
     total_likes = sum(post.likes.count() for post in posts)
-    total_dislikes = sum(post.likes.count() for post in posts)
+    total_dislikes = sum(post.dislikes.count() for post in posts)
+
     context = {
         'profile_user': user,
         'posts': posts,
@@ -51,12 +49,12 @@ def profile(request):
 
     return render(request, 'profile.html', context)
 
+
 def user_profile(request, username):
     profile_user = get_object_or_404(User, username=username)
-    posts = profile_user.posts.all().order_by('-created_at').order_by('-created_at')
+    posts = profile_user.posts.all().order_by('-created_at')
     total_likes = sum(post.likes.count() for post in posts)
-    total_dislikes = sum(post.likes.count() for post in posts)
-
+    total_dislikes = sum(post.dislikes.count() for post in posts)
 
     context = {
         'profile_user': profile_user,
@@ -67,9 +65,9 @@ def user_profile(request, username):
 
     return render(request, 'profile.html', context)
 
+
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-
     comments = post.comments.all().order_by('created_at')
 
     context = {
@@ -79,15 +77,14 @@ def post_detail(request, pk):
 
     return render(request, 'post_detail.html', context)
 
+
 @login_required
 def like_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
-
     if request.user in post.likes.all():
         post.likes.remove(request.user)
     else:
         post.likes.add(request.user)
-
     return redirect('index')
 
 
@@ -101,55 +98,42 @@ def toggle_dislike(request, post_id):
         post.dislikes.add(user)
         if user in post.likes.all():
             post.likes.remove(user)
-    return redirect(request.META.get('HTTP_REFERER', 'home'))
+    return redirect(request.META.get('HTTP_REFERER', 'index'))
+
 
 @login_required
 def add_comment(request, pk):
-
     post = get_object_or_404(Post, pk=pk)
-
     if request.method == 'POST':
         text = request.POST.get('text')
-
         if text:
             Comment.objects.create(
                 post=post,
                 author=request.user,
                 text=text
             )
-
     return redirect('post_detail', pk=pk)
 
 
 @login_required
 def edit_profile(request):
-
     user = request.user
-
     if request.method == 'POST':
-        form = ProfileEditForm(request.POST, request.FILES, instance=user)
-
+        form = EditProfileForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
             return redirect('profile')
-
     else:
-        form = ProfileEditForm(instance=user)
+        form = EditProfileForm(instance=user)
 
-    context = {
-        'form': form
-    }
-
+    context = {'form': form}
     return render(request, 'edit_profile.html', context)
 
 
 @login_required
 def delete_profile(request):
-
     user = request.user
-
     if request.method == 'POST':
         user.delete()
         return redirect('index')
-
     return render(request, 'delete_profile.html')
