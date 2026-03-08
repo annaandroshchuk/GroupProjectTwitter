@@ -318,3 +318,31 @@ textarea {
 #file-input{
     display:none;
 }
+
+.icon-btn{
+    color: white;
+    font-size: 18px;
+    opacity: 0.9;
+    transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.icon-btn:hover{
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.username-badge{
+    font-size:14px;
+    font-weight:600;
+
+    padding:4px 10px;
+
+    border-radius:14px;
+
+    background: rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.12);
+
+    color:white;
+
+    backdrop-filter: blur(4px);
+}

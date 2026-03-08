@@ -1,124 +1,214 @@
-.profile-container {
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 30px;
-    background: #fff;
-    border-radius: 15px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+.profile-page{
+    max-width:900px;
+    margin: 80px auto 0 auto;
+    padding: 0 15px;
 }
 
-.profile-container h1,
-.profile-container h2 {
-    text-align: center;
-    color: #111;
-}
 
-.profile-avatar {
-    display: block;
-    margin: 0 auto 20px auto;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--border-color);
-}
 
-.profile-info p {
-    font-size: 16px;
-    margin: 5px 0;
-    color: #333;
-}
-
-.profile-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.profile-buttons a button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.2s;
-}
-
-.profile-buttons a .edit-btn {
-    background-color: #000;
+.dark-glass{
+    background: rgba(15, 15, 15, 0.7);
     color: #fff;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.5);
+    width:70%;
+    margin: 0 auto 30px auto;
+    padding:25px;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.profile-buttons a .edit-btn:hover {
-    opacity: 0.85;
+.pulse-hover:hover{
+    transform: scale(1.02);
+    box-shadow:0 12px 40px rgba(0,0,0,0.7);
 }
 
-.profile-buttons a .delete-btn {
-    background-color: #e74c3c;
-    color: #fff;
+
+.profile-header{
+    display:flex;
+    align-items:center;
+    gap:25px;
 }
 
-.profile-buttons a .delete-btn:hover {
-    opacity: 0.85;
+.profile-avatar{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid rgba(255,255,255,0.2);
 }
 
-/* Форма редагування */
-.profile-form {
+.avatar-placeholder{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    background: linear-gradient(135deg,#222,#111);
+}
+
+.username{
+    font-size:28px;
+    font-weight:700;
+}
+
+.profile-stats{
+    display:flex;
+    gap:25px;
+    margin-top:8px;
+}
+
+.stat{
+    display:flex;
+    flex-direction:column;
+}
+
+.stat-number{
+    font-size:18px;
+    font-weight:700;
+}
+
+.stat-label{
+    font-size:13px;
+    color:#aaa;
+}
+
+.profile-actions{
+    display:flex;
+    gap:15px;
+    margin-top:25px;
+}
+
+.glass-btn{
+    padding:10px 18px;
+    border-radius:10px;
+    text-decoration:none;
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.2);
+    color:#fff;
+    backdrop-filter:blur(6px);
+    transition:0.2s;
+}
+
+.glass-btn:hover{
+    transform: scale(1.05);
+}
+
+.danger-btn{
+    padding:10px 18px;
+    border-radius:10px;
+    background:#e74c3c;
+    color:white;
+    text-decoration:none;
+}
+
+.posts-title{
+    margin:40px 0 20px;
+    font-size:20px;
+    color:#fff;
+}
+
+.profile-posts{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.post-card{
+    padding:20px;
+}
+
+.post-header{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    margin-bottom:10px;
+}
+
+.post-avatar{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+    border:1px solid rgba(255,255,255,0.2);
+}
+
+.post-avatar-placeholder{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:#333;
+}
+
+.post-author{
+    font-weight:600;
+    text-decoration:none;
+    color:#fff;
+}
+
+.post-date{
+    font-size:12px;
+    color:#aaa;
+}
+
+.post-content{
+    margin:10px 0;
+    line-height:1.5;
+}
+
+.post-image{
+    margin-top:10px;
+    width:100%;
+    border-radius:12px;
+}
+
+.comments-link{
+    display:inline-block;
+    margin-top:12px;
+    font-size:14px;
+    color:#4da3ff;
+    text-decoration:none;
+}
+
+.no-posts{
+    text-align:center;
+    color:#aaa;
+}
+
+.grid-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    justify-content: center;
+}
+
+.post-card.dark-glass {
+    width:100%;
+    margin:0;
+    padding:20px;
+}
+
+
+.post-card.dark-glass {
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    height: 320px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    justify-content: space-between;
+    overflow: hidden;
 }
 
-.profile-form label {
-    font-size: 14px;
-    color: #555;
+.post-content {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.profile-form input[type="text"],
-.profile-form input[type="email"],
-.profile-form input[type="file"] {
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    font-size: 14px;
-}
-
-.profile-form input:focus {
-    outline: none;
-    border-color: #000;
-}
-
-.profile-form button {
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    background: #000;
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.profile-form button:hover {
-    opacity: 0.85;
-}
-
-.delete-confirm {
-    text-align: center;
-}
-
-.delete-confirm button {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 10px;
-    background: #e74c3c;
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.delete-confirm button:hover {
-    opacity: 0.85;
+.post-image {
+    max-height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-top: 10px;
 }
