@@ -309,3 +309,36 @@
     background: rgba(255,255,255,0.1);
     border-color: rgba(255,255,255,0.5);
 }
+
+.profile-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    justify-content: center;
+}
+
+.profile-posts .post-card {
+    display: flex;
+    flex-direction: column;
+    background: rgba(20,20,20,0.8);
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid rgba(255,255,255,0.1);
+    overflow: hidden;
+}
+
+.profile-posts .post-content {
+    margin-bottom: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #fff;
+}
+
+
+.profile-posts .post-image {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
